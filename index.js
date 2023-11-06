@@ -77,12 +77,12 @@ router.get('/getSuperheroByID/:id', (req, res) => {
     console.log("Looking for: " + req.params.id);
     const result = getHeroByID(req.params.id);
 
-    if (result.length > 0) {
+    if (result && !result.message) {
         res.json(result);
     } else {
-        res.status(404).send('No superheroes found with the given id.');
+        res.status(404).json(result);
     }
-})
+});
 
 
 
@@ -162,4 +162,20 @@ function getHeroByPower(searchPower) {
     });
   
     return results;
+  }
+
+
+function getHeroByID(searchID) {
+    console.log("Search: " + searchID);
+    let result = null;
+  
+    const hero = superheroInfo.find((hero) => hero.id.toString() === searchID.toString());
+  
+    if (hero) {
+        const heroPowers = superheroPowers.find((power) => power.hero_names === hero.name);
+  
+        result = heroPowers ? { ...hero, powers: heroPowers } : hero;
+    }
+  
+    return result ? result : { message: 'Hero not found' };
   }
