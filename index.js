@@ -14,8 +14,9 @@ const router = express.Router();
 
 app.use('/api', router);
 
-app.get('/', (req, res) => {
-    res.send('Hello World!');
+app.get('/api/superheroInfo', (req, res) => {
+    console.log(`GET request for ${req.url}`);
+    res.send(superheroInfo);
 });
 
 app.listen(port, () => 
