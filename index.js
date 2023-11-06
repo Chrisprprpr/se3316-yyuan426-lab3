@@ -3,7 +3,7 @@ const app = express();
 var fs = require('fs');
 
 const superheroInfo = require('superheroes/superhero_info.json');
-const superheroPowers = require('./superhero_powers.json');
+//const superheroPowers = require('./superhero_powers.json');
 
 app.use(express.json());
 
@@ -19,9 +19,10 @@ app.listen(port, () =>
 
 
 
-router.route('/getSuperByName/:name')
+/*router.route('/getSuperByName/:name')
     .get((req, res) => {
         console.log("Response Sent")
         result = getHeroByName(req.params.name)
         res.send(result);
     });
+    */
