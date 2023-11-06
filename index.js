@@ -145,3 +145,21 @@ function getHeroByPublisher(searchPublisher) {
     });
     return results;
 }
+
+function getHeroByPower(searchPower) {
+    console.log("Search: " + searchPower);
+    let results = [];
+  
+    superheroPowers.forEach((heroPower) => {
+      for (let power in heroPower) {
+        if (power.toLowerCase().includes(searchPower.toLowerCase()) && heroPower[power] === "True") {
+          let heroResult = getHeroByName(heroPower["hero_names"]);
+          if (heroResult.length > 0) {
+            results.push(heroResult[0]); 
+          }
+        }
+      }
+    });
+  
+    return results;
+  }
