@@ -24,15 +24,6 @@ app.listen(port, () =>
     console.log(`Listening on port ${port}`)
 );
 
-/*
-router.route('/getSuperheroByName/:name')
-	.get((req, res) => {
-		console.log("Response Sent")
-		result = getHeroByName(req.params.name)
-
-		res.send(result)
-	})
-*/
 
 
 router.get('/getSuperheroByName/:name', (req, res) => {
@@ -115,20 +106,42 @@ function getHeroByName(searchName){
     return results;
 }
 
-/*
-function getHeroByName(name){
-	console.log("Search: " + name)
-	let results = [];
-	for(let i=0; i<superheroInfo.length; i++){
-		if(superheroInfo[i].name.includes(name)){
-			for(let j=0; j<superheroPowers.length; j++){
-				if(superheroPowers[j].hero_names == superheroInfo[i].name){
-					superheroInfo[i].Powers = superheroPowers[j]
-				}
-			}
-			results.push(JSON.stringify(superheroInfo[i]));
-		}
-	}
-	return results;
+function getHeroByRace(searchRace) {
+    console.log("Search: " + searchRace);
+    let results = [];
+    
+    const searchRaceLower = searchRace.toLowerCase();
+  
+    superheroInfo.forEach((hero) => {
+        if (hero.Race.toLowerCase().includes(searchRaceLower)) {
+            const heroPowers = superheroPowers.find((power) => power.hero_names === hero.name);
+  
+            if (heroPowers) {
+            results.push({ ...hero, Powers: heroPowers });
+            } else {
+                results.push(hero);
+            }
+        }
+    });
+    return results;
 }
-*/
+
+function getHeroByPublisher(searchPublisher) {
+    console.log("Search: " + searchPublisher);
+    let results = [];
+    
+    const searchPublisherLower = searchPublisher.toLowerCase();
+    
+    superheroInfo.forEach((hero) => {
+        if (hero.Publisher.toLowerCase().includes(searchPublisherLower)) {
+            const heroPowers = superheroPowers.find((power) => power.hero_names === hero.name);
+    
+            if (heroPowers) {
+            results.push({ ...hero, Powers: heroPowers });
+            } else {
+            results.push(hero);
+            }
+        }
+    });
+    return results;
+}
