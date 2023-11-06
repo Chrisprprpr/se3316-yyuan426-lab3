@@ -2,8 +2,8 @@ const express = require("express");
 const app = express();
 var fs = require('fs');
 
-const superheroInfo = require('superheroes/superhero_info.json');
-//const superheroPowers = require('./superhero_powers.json');
+const superheroInfo = require('./superheroes/superhero_info.json');
+const superheroPowers = require('./superheroes/superhero_powers.json');
 
 app.use(express.json());
 
