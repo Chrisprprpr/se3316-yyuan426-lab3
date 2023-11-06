@@ -1,0 +1,63 @@
+/* stylesheet.css */
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background: #f4f4f4;
+    color: #333;
+}
+
+.heading {
+    background: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    font-size: 2em;
+}
+
+.searchBar, .listFunctions, .resultActions {
+    padding: 20px;
+    margin: 20px;
+    background: #fff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.searchBar input, .listFunctions input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    margin-right: 5px;
+}
+
+.button {
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    background: #333;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.button:hover {
+    background: #555;
+}
+
+.resultActions a {
+    margin-right: 5px;
+    color: #333;
+    font-weight: bold;
+}
+
+#results {
+    list-style: none;
+    margin: 20px;
+    padding: 0;
+}
+
+#results li {
+    background: #fff;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
