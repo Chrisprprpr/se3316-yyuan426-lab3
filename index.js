@@ -1,31 +1,32 @@
+// Import necessary libraries
 const express = require("express");
 const app = express();
 var fs = require('fs');
 const port = 3000;
 
+// Load the superhero information and powers from the JSON files
 const superheroInfo = require('./superheroes/superhero_info.json');
 const superheroPowers = require('./superheroes/superhero_powers.json');
 
+// Set up the server to parse incoming requests as JSON
 app.use(express.json());
 
+// Serve static files from the client directory
 app.use('/', express.static('../client'))
 
+// Create a new router to handle API requests
 const router = express.Router();
 
+// Attach the router to the server, allowing it to handle API requests
 app.use('/api', router);
 
-/*app.get('/api/superheroInfo', (req, res) => {
-    console.log(`GET request for ${req.url}`);
-    res.send(superheroInfo);
-});
-*/
-
+// Start the server and listen on port 3000
 app.listen(port, () => 
     console.log(`Listening on port ${port}`)
 );
 
 
-
+// Route to get superheroes by name
 router.get('/getSuperheroByName/:name', (req, res) => {
     console.log("Looking for: " + req.params.name);
     const result = getHeroByName(req.params.name);
@@ -37,7 +38,7 @@ router.get('/getSuperheroByName/:name', (req, res) => {
     }
 });
 
-
+// Route to get superheroes by race
 router.get('/getSuperheroByRace/:race', (req, res) => {
     console.log("Looking for: " + req.params.race);
     const result = getHeroByRace(req.params.race);
@@ -49,6 +50,7 @@ router.get('/getSuperheroByRace/:race', (req, res) => {
     }
 });
 
+// Route to get superheroes by publisher
 router.get('/getSuperheroByPublisher/:publisher', (req, res) => {
     console.log("Looking for: " + req.params.publisher);
     const result = getHeroByPublisher(req.params.publisher);
@@ -60,7 +62,7 @@ router.get('/getSuperheroByPublisher/:publisher', (req, res) => {
     }
 });
 
-
+// Route to get superheroes by power
 router.get('/getSuperheroByPower/:power', (req, res) => {
     console.log("Looking for: " + req.params.power);
     const result = getHeroByPower(req.params.power);
@@ -72,7 +74,7 @@ router.get('/getSuperheroByPower/:power', (req, res) => {
     }
 })
 
-
+// Route to get superheroes by id
 router.get('/getSuperheroByID/:id', (req, res) => {
     console.log("Looking for: " + req.params.id);
     const result = getHeroByID(req.params.id);
