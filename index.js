@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 var fs = require('fs');
+const port = 3000;
 
 const superheroInfo = require('./superheroes/superhero_info.json');
 const superheroPowers = require('./superheroes/superhero_powers.json');
@@ -12,7 +13,11 @@ app.use('/', express.static('../client'))
 const router = express.Router();
 
 app.use('/api', router);
-const port = 3000;
+
+app.get('/', (req, res) => {
+    res.send('Hello World!');
+});
+
 app.listen(port, () => 
     console.log(`Listening on port ${port}`)
 );
