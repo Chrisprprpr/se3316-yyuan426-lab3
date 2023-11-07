@@ -14,6 +14,17 @@ app.use(express.json());
 // Serve static files from the client directory
 app.use('/', express.static('../client'))
 
+
+app.get('/api/superheroes/info', (req, res) => {
+    res.json(superheroInfo);
+});
+
+// Set up an endpoint to serve the superhero_powers.json data
+app.get('/api/superheroes/powers', (req, res) => {
+    res.json(superheroPowers);
+});
+
+
 // Create a new router to handle API requests
 const router = express.Router();
 
