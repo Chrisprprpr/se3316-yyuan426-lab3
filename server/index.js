@@ -1,7 +1,7 @@
 // Import necessary libraries
 const express = require("express");
 const app = express();
-var fs = require('fs');
+//var fs = require('fs');
 const port = 3000;
 
 // Load the superhero information and powers from the JSON files
@@ -85,6 +85,78 @@ router.get('/getSuperheroByID/:id', (req, res) => {
         res.status(404).json(result);
     }
 });
+
+
+
+const fs = require('fs').promises;
+
+router.route('/list/:listName')
+  .get(async (req, res) => {
+    try {
+      const lists = JSON.parse(await fs.readFile('lists.json', 'utf8'));
+      const list = lists[req.params.listName];
+      if (list) {
+        res.json(list);
+      } else {
+        res.status(404).send("List Not Found");
+      }
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("Server Error");
+    }
+  })
+  .put(async (req, res) => {
+    try {
+      const lists = JSON.parse(await fs.readFile('lists.json', 'utf8'));
+      const listName = req.params.listName;
+      if (lists[listName]) {
+        res.status(400).send("List Already Exists");
+      } else {
+        lists[listName] = req.body;
+        await fs.writeFile('lists.json', JSON.stringify(lists), 'utf8');
+        res.status(200).json(req.body);
+      }
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("Server Error");
+    }
+  })
+  .post(async (req, res) => {
+    try {
+      const lists = JSON.parse(await fs.readFile('lists.json', 'utf8'));
+      const listName = req.params.listName;
+      if (lists[listName]) {
+        lists[listName] = {...lists[listName], ...req.body}; // Merges existing with new data
+        await fs.writeFile('lists.json', JSON.stringify(lists), 'utf8');
+        res.status(200).json(lists[listName]);
+      } else {
+        res.status(404).send("List Not Found");
+      }
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("Server Error");
+    }
+  })
+  .delete(async (req, res) => {
+    try {
+      const lists = JSON.parse(await fs.readFile('lists.json', 'utf8'));
+      const listName = req.params.listName;
+      if (lists[listName]) {
+        delete lists[listName];
+        await fs.writeFile('lists.json', JSON.stringify(lists), 'utf8');
+        res.status(200).send("Successfully Deleted");
+      } else {
+        res.status(404).send("List Not Found");
+      }
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("Server Error");
+    }
+  });
+
+
+
+
 
 
 
