@@ -11,6 +11,13 @@ const superheroPowers = require('./superheroes/superhero_powers.json');
 // Set up the server to parse incoming requests as JSON
 app.use(express.json());
 
+app.get('/test', (req, res) => {
+    res.send('Server is running');
+  });
+
+
+
+
 // Serve static files from the client directory
 app.use('/', express.static('../client'))
 
